@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeevan Sai Reddy Choppa | Resume</title>
     <meta name="description" content="Resume of Jeevan Sai Reddy Choppa">
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -36,14 +36,10 @@
 
         <!-- Main Content -->
         <main class="resume-content">
-            <div class="resume-page-header">
-                <div class="resume-title">
-                    <h1>CV</h1>
-                    <p>This is a description of my qualifications. You can browse my full background here.</p>
-                </div>
-                <div class="resume-download">
-                    <a href="#" title="Download PDF"><i class="fa-solid fa-file-pdf"></i><br>PDF</a>
-                </div>
+            <div class="resume-title">
+                <h1 class="beautiful-title" style="text-align: left; margin-bottom: 0.5rem;">Curriculum Vitae</h1>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">A comprehensive overview of my qualifications, experience, and background.</p>
+                <a href="#" class="btn btn-outline" title="Download PDF"><i class="fa-solid fa-file-pdf"></i> Download PDF</a>
             </div>
 
             <!-- Basics Section -->
@@ -53,7 +49,7 @@
                     <div class="cv-label">Name</div>
                     <div class="cv-value">Jeevan Sai Reddy Choppa</div>
                     
-                    <div class="cv-label">Label</div>
+                    <div class="cv-label">Role</div>
                     <div class="cv-value">MS Data Science Candidate</div>
                     
                     <div class="cv-label">Email</div>
@@ -63,7 +59,7 @@
                     <div class="cv-value">+1 (240) 305-4587</div>
                     
                     <div class="cv-label">Summary</div>
-                    <div class="cv-value">Data Scientist specializing in Natural Language Processing, Agentic Auto-ML workflows, and Retrieval-Augmented Generation (RAG) pipelines.</div>
+                    <div class="cv-value">Data Scientist specializing in Natural Language Processing, Agentic Auto-ML workflows, and Retrieval-Augmented Generation (RAG) pipelines. Proven track record building production-ready, end-to-end ML architectures.</div>
                 </div>
             </section>
 
@@ -104,7 +100,7 @@
                     <div class="cv-value">Python, SQL, MATLAB</div>
                     
                     <div class="cv-label">ML & NLP</div>
-                    <div class="cv-value">PyTorch, Scikit-learn, Hugging Face, LangChain, LlamaParse, QLoRA</div>
+                    <div class="cv-value">PyTorch, Scikit-learn, Hugging Face, LangChain, LlamaParse, QLoRA, Matryoshka Representation Learning</div>
                     
                     <div class="cv-label">Infrastructure</div>
                     <div class="cv-value">Docker, Weaviate, Ollama, AWS, PostgreSQL, MySQL</div>
@@ -112,7 +108,7 @@
             </section>
 
             <!-- Projects Section -->
-            <section id="cv-projects" class="cv-section">
+            <section id="cv-projects" class="cv-section" style="border-bottom: none;">
                 <h2>Projects & Research</h2>
                 
                 <div class="cv-item">
@@ -135,12 +131,19 @@
                     </div>
                 </div>
 
+                <div class="cv-item">
+                    <div class="cv-item-left">
+                        <span class="cv-date">May 2026</span>
+                    </div>
+                    <div class="cv-item-right">
+                        <h3 class="cv-item-title">DataAdapt: Fine-Tuned Data Science Copilot</h3>
+                        <p class="cv-item-desc">Fine-tuned Llama-3-8B into a specialized data science copilot using QLoRA. Built a robust data curation pipeline reducing GPU footprint by 75% while improving SQL and Pandas code generation.</p>
+                    </div>
+                </div>
             </section>
 
         </main>
     </div>
-
-
 
 </body>
 </html>

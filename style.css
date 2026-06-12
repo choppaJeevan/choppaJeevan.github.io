@@ -195,9 +195,10 @@ nav {
 /* Resume Page Layout */
 .resume-page-container {
     max-width: 1200px;
-    margin: 8rem auto 4rem auto;
-    padding: 0 5%;
+    margin: 0 auto 4rem auto;
+    padding: 10rem 5% 0 5%;
     display: flex;
+    flex-direction: row;
     gap: 4rem;
     align-items: flex-start;
 }
