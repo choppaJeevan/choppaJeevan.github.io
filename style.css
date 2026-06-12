@@ -1,11 +1,11 @@
 :root {
-    --bg-main: #2d2a2e; /* Matte cozy warm dark grey */
-    --bg-secondary: #3b373d; /* Card background */
-    --text-main: #fcfcfa; /* Off-white text */
-    --text-muted: #c1bcbe; /* Soft grey */
-    --primary: #ff8b7a; /* Vibrant cozy coral */
-    --primary-hover: #ff7059;
-    --border: #4d484f;
+    --bg-main: #dbd8d2; /* Elegant warm matte greige from reference */
+    --bg-secondary: transparent; 
+    --text-main: #181818; /* Rich charcoal */
+    --text-muted: #3a3a3a; /* Dark grey */
+    --primary: #181818; 
+    --primary-hover: #000000;
+    --border: #b0aca6;
 }
 
 * {
@@ -63,29 +63,24 @@ a:hover {
 }
 
 .card {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: transparent;
+    border: none;
+    padding: 2rem 0;
+    box-shadow: none;
 }
 
 .card:hover {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: none;
 }
 
 /* Navigation */
 nav {
-    position: fixed;
+    position: absolute;
     top: 0;
     width: 100%;
-    padding: 1.2rem 10%;
+    padding: 2rem 5%;
     z-index: 100;
-    background: rgba(45, 42, 46, 0.95);
-    backdrop-filter: blur(5px);
-    border-bottom: 1px solid var(--border);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    background: transparent;
 }
 
 .nav-container {
@@ -97,26 +92,32 @@ nav {
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary);
-    letter-spacing: 1px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #181818;
+    background: #fdfae5;
+    padding: 0.6rem 1.5rem;
+    border-radius: 4px;
 }
 
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 2rem;
-    align-items: center;
+    gap: 0.5rem;
 }
 
 .nav-links a {
-    color: var(--text-main);
-    font-weight: 500;
+    color: #181818;
+    background: #e6f2eb;
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 400;
+    font-size: 0.95rem;
 }
 
-.nav-links a:hover {
-    color: var(--primary);
+.nav-links a[href="#contact"] {
+    background: #e3f0f7;
+    border-radius: 4px;
 }
 
 /* Hero & About Split Layout */
@@ -203,38 +204,30 @@ nav {
 }
 
 .beautiful-title {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--primary);
-    background: linear-gradient(90deg, #ff8b7a 0%, #ffc17a 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    line-height: 1.4;
+    font-size: 2.2rem;
+    font-family: 'Merriweather', serif;
+    font-weight: 400;
+    color: var(--text-main);
+    line-height: 1.3;
     margin-bottom: 0.5rem;
+    text-align: center;
 }
 
 .project-header {
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-}
-
-.project-header h3 {
-    font-size: 1.6rem;
-    color: var(--text-main);
-}
-
-.project-header .date {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    font-weight: 500;
+    justify-content: center;
+    align-items: center;
 }
 
 .project-content p {
     color: var(--text-muted);
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     flex-grow: 1;
+    text-align: center;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Buttons */
@@ -242,6 +235,7 @@ nav {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    justify-content: center;
     margin-top: auto;
 }
 
@@ -399,8 +393,8 @@ nav {
 /* Footer & Cartoons */
 .footer {
     padding: 4rem 10%;
-    background: rgba(45,42,46,0.8);
-    border-top: 1px solid var(--border);
+    background: transparent;
+    border-top: 1px dashed var(--border);
     text-align: center;
 }
 
