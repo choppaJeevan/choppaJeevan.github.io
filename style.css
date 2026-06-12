@@ -580,7 +580,12 @@ nav {
 }
 
 @media (max-width: 768px) {
-    .nav-links {
+    .nav-container {
+        display: flex;
+        justify-content: center;
+    }
+    .logo,
+    .btn-connect {
         display: none;
     }
     .hero-name {
