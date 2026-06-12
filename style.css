@@ -412,7 +412,7 @@ nav {
     margin: auto;
     width: 100%;
     max-width: 850px;
-    background: var(--bg-secondary);
+    background: #fdfae5; /* Solid background to prevent text bleeding */
     border-radius: 8px;
     position: relative;
     padding: 3rem;
