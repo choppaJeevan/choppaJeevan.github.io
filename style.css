@@ -514,14 +514,6 @@ nav {
     margin-bottom: 3rem;
 }
 
-.footer-cartoon {
-    max-width: 400px;
-    height: auto;
-    border-radius: 12px;
-    mix-blend-mode: multiply; /* Removes white background from jpegs */
-    object-fit: contain;
-}
-
 .contact-icons {
     display: flex;
     justify-content: center;
@@ -539,8 +531,9 @@ nav {
     transition: color 0.3s, transform 0.3s;
 }
 
-.contact-icons a i {
-    font-size: 2rem;
+.contact-icons a svg {
+    width: 2rem;
+    height: 2rem;
 }
 
 .contact-icons a:hover {
