@@ -1,10 +1,11 @@
 :root {
-    --bg-secondary: #ffffff; /* Crisp white for cards */
-    --text-main: #2d3748; /* Darker slate for readability */
-    --text-muted: #718096; /* Subtle grey for secondary text */
-    --primary: #2b6cb0; /* Professional, softer Navy Blue */
-    --primary-hover: #1a365d;
-    --border: #e2e8f0;
+    --bg-main: #2d2a2e; /* Matte cozy warm dark grey */
+    --bg-secondary: #3b373d; /* Card background */
+    --text-main: #fcfcfa; /* Off-white text */
+    --text-muted: #c1bcbe; /* Soft grey */
+    --primary: #ff8b7a; /* Vibrant cozy coral */
+    --primary-hover: #ff7059;
+    --border: #4d484f;
 }
 
 * {
@@ -16,8 +17,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    /* Soft mesh gradient background */
-    background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 50%, #f6efff 100%);
+    background: var(--bg-main);
     background-attachment: fixed;
     color: var(--text-main);
     line-height: 1.7;
@@ -82,10 +82,10 @@ nav {
     width: 100%;
     padding: 1.2rem 10%;
     z-index: 100;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(45, 42, 46, 0.95);
     backdrop-filter: blur(5px);
     border-bottom: 1px solid var(--border);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .nav-container {
@@ -206,7 +206,7 @@ nav {
     font-size: 1.6rem;
     font-weight: 700;
     color: var(--primary);
-    background: linear-gradient(90deg, var(--primary) 0%, #4299e1 100%);
+    background: linear-gradient(90deg, #ff8b7a 0%, #ffc17a 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     line-height: 1.4;
@@ -245,6 +245,15 @@ nav {
     margin-top: auto;
 }
 
+.cv-date {
+    background: var(--border);
+    color: var(--primary);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
 .btn {
     padding: 0.5rem 1rem;
     border-radius: 6px;
@@ -274,11 +283,12 @@ nav {
 }
 
 .btn-secondary {
-    background-color: #edf2f7;
+    background-color: var(--bg-secondary);
     color: var(--text-main);
+    border: 1px solid var(--border);
 }
 .btn-secondary:hover {
-    background-color: #e2e8f0;
+    background-color: var(--border);
     color: var(--text-main);
 }
 
@@ -376,7 +386,7 @@ nav {
 }
 
 .mermaid-container {
-    background: #f8fafc;
+    background: var(--bg-main);
     border-radius: 8px;
     padding: 1.5rem;
     margin-top: 1rem;
@@ -389,7 +399,7 @@ nav {
 /* Footer & Cartoons */
 .footer {
     padding: 4rem 10%;
-    background: rgba(255,255,255,0.8);
+    background: rgba(45,42,46,0.8);
     border-top: 1px solid var(--border);
     text-align: center;
 }
