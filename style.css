@@ -264,7 +264,7 @@ nav {
     margin-bottom: 2rem;
 }
 .cv-item-left {
-    flex: 0 0 150px;
+    flex: 0 0 175px;
     text-align: right;
 }
 .cv-item-right {
@@ -346,6 +346,7 @@ nav {
     border-radius: 4px;
     font-size: 0.85rem;
     font-weight: 700;
+    white-space: nowrap;
 }
 
 .btn {
