@@ -187,10 +187,12 @@ nav {
     color: var(--text-main);
     line-height: 1.8;
     text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
 }
 
 .about-text p {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.9rem;
 }
 
 /* Resume Page Layout */
