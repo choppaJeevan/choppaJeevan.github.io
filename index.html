@@ -12,7 +12,6 @@
     
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-        // Using 'default' theme for light mode readability
         mermaid.initialize({ startOnLoad: true, theme: 'default' });
     </script>
 </head>
@@ -20,11 +19,11 @@
 
     <nav>
         <div class="nav-container">
-            <a href="#home" class="logo">Jeevan.</a>
+            <a href="#home" class="logo">Home</a>
             <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="resume.html">Resume</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
             </ul>
         </div>
     </nav>
@@ -49,90 +48,70 @@
                 <p>
                     My expertise lies in building production-ready, end-to-end ML pipelines—spanning data ingestion, model orchestration, hybrid search infrastructure, and automated evaluation. I strive to deliver robust, measurable outcomes through rigorous algorithms and state-of-the-art Generative AI.
                 </p>
-                <p>
-                    <strong>Key Interests:</strong> LLM Fine-Tuning, Agentic Auto-ML workflows, Graph-theoretic algorithms, and Time Series Forecasting.
-                </p>
-            </div>
-            
-            <div class="contact-icons">
-                <a href="mailto:jeevansaichoppa@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
-                <a href="https://github.com/choppaJeevan" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/jeevan-sai-reddy-choppa/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="section bg-light">
-        <h2 class="section-title">Technical Expertise</h2>
-        <div class="skills-grid">
-            <div class="skill-category card">
-                <h3><i class="fa-solid fa-code"></i> Languages & Tools</h3>
-                <div class="skill-tags">
-                    <span>Python</span><span>SQL</span><span>MATLAB</span><span>Git</span><span>AWS</span>
-                </div>
-            </div>
-            <div class="skill-category card">
-                <h3><i class="fa-solid fa-network-wired"></i> ML & NLP</h3>
-                <div class="skill-tags">
-                    <span>PyTorch</span><span>Scikit-learn</span><span>Hugging Face</span><span>LangChain</span><span>LlamaParse</span><span>QLoRA</span>
-                </div>
-            </div>
-            <div class="skill-category card">
-                <h3><i class="fa-solid fa-database"></i> Infrastructure</h3>
-                <div class="skill-tags">
-                    <span>Docker</span><span>Weaviate</span><span>Ollama</span><span>PostgreSQL</span><span>MySQL</span>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Projects Section -->
     <section id="projects" class="section">
-        <h2 class="section-title">Featured Research & Projects</h2>
-        <div class="projects-grid">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-list">
             
             <div class="project-card card" onclick="openModal('modal-1')">
-                <div class="project-header">
-                    <h3>OmniData: Agentic Auto-ML</h3>
-                    <span class="date">Jun 2026</span>
-                </div>
-                <p>Multi-agent ML orchestration system that autonomously ingests datasets and executes a model tournament across 10+ algorithms. Integrated LLaVA and Llama 3.</p>
-                <div class="project-tech">
-                    <span>LLM Agents</span><span>Auto-ML</span><span>XGBoost</span>
+                <img src="project1.png" alt="OmniData Thumbnail" class="project-image">
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3>OmniData: Agentic Auto-ML</h3>
+                        <span class="date">Jun 2026</span>
+                    </div>
+                    <p>Multi-agent ML orchestration system that autonomously ingests datasets and executes a model tournament across 10+ algorithms. Integrated LLaVA and Llama 3 for intelligent architectural selection.</p>
+                    <div class="project-tech">
+                        <span>LLM Agents</span><span>Auto-ML</span><span>XGBoost</span>
+                    </div>
                 </div>
             </div>
 
             <div class="project-card card" onclick="openModal('modal-2')">
-                <div class="project-header">
-                    <h3>DeepRAG: Enterprise Analysis</h3>
-                    <span class="date">Mar - May 2026</span>
-                </div>
-                <p>Optimized RAG pipeline processing complex PDFs via LlamaParse. Utilized Semantic Chunking, Matryoshka Representation Learning, and DeepSeek-R1.</p>
-                <div class="project-tech">
-                    <span>RAG</span><span>Weaviate</span><span>DeepSeek-R1</span>
+                <img src="project2.png" alt="DeepRAG Thumbnail" class="project-image">
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3>DeepRAG: Enterprise Analysis</h3>
+                        <span class="date">Mar - May 2026</span>
+                    </div>
+                    <p>Optimized RAG pipeline processing complex PDFs via LlamaParse. Utilized Semantic Chunking, Matryoshka Representation Learning, and orchestrated DeepSeek-R1 for grounded generative responses.</p>
+                    <div class="project-tech">
+                        <span>RAG</span><span>Weaviate</span><span>DeepSeek-R1</span>
+                    </div>
                 </div>
             </div>
 
             <div class="project-card card" onclick="openModal('modal-3')">
-                <div class="project-header">
-                    <h3>DataAdapt: DS Copilot</h3>
-                    <span class="date">May 2026</span>
-                </div>
-                <p>Fine-tuned Llama-3-8B into a specialized data science copilot using QLoRA. Built a robust data curation pipeline reducing GPU footprint by 75%.</p>
-                <div class="project-tech">
-                    <span>QLoRA</span><span>Fine-Tuning</span><span>Llama-3</span>
+                <img src="project3.png" alt="DataAdapt Thumbnail" class="project-image">
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3>DataAdapt: DS Copilot</h3>
+                        <span class="date">May 2026</span>
+                    </div>
+                    <p>Fine-tuned Llama-3-8B into a specialized data science copilot using QLoRA. Built a robust data curation pipeline reducing GPU footprint by 75% while improving SQL and Pandas code generation.</p>
+                    <div class="project-tech">
+                        <span>QLoRA</span><span>Fine-Tuning</span><span>Llama-3</span>
+                    </div>
                 </div>
             </div>
 
             <div class="project-card card" onclick="openModal('modal-4')">
-                <div class="project-header">
-                    <h3>GenAI Clinical Decision Support</h3>
-                    <span class="date">Apr - May 2026</span>
-                </div>
-                <p>End-to-end clinical decision pipeline processing 4,000+ MTSamples. Integrated domain-specific BERT architectures for NER and Gemma3-4B.</p>
-                <div class="project-tech">
-                    <span>Clinical NLP</span><span>BERT</span><span>Gemma3-4B</span>
+                <img src="project4.png" alt="Clinical NLP Thumbnail" class="project-image">
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3>GenAI Clinical Decision Support</h3>
+                        <span class="date">Apr - May 2026</span>
+                    </div>
+                    <p>End-to-end clinical decision pipeline processing 4,000+ MTSamples. Integrated domain-specific BERT architectures for NER and Gemma3-4B to logically infer comprehensive medical treatments.</p>
+                    <div class="project-tech">
+                        <span>Clinical NLP</span><span>BERT</span><span>Gemma3-4B</span>
+                    </div>
                 </div>
             </div>
 
@@ -141,14 +120,24 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>© 2026 Jeevan Sai Reddy Choppa. All Rights Reserved.</p>
-        <p><a href="mailto:jeevansaichoppa@gmail.com">jeevansaichoppa@gmail.com</a> | +1 (240) 305-4587</p>
+        <div class="footer-content">
+            <h2 class="footer-title">Let's Connect</h2>
+            <div class="contact-icons">
+                <a href="mailto:jeevansaichoppa@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                <a href="https://github.com/choppaJeevan" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/jeevan-sai-reddy-choppa/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+            <p class="copyright">© 2026 Jeevan Sai Reddy Choppa. All Rights Reserved.</p>
+        </div>
     </footer>
 
     <!-- Modals -->
     <div id="modal-1" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-1')">&times;</span>
+            <div class="readme-header">
+                <i class="fa-solid fa-book-open"></i> README.md
+            </div>
             <h2>OmniData: Agentic Auto-ML & Conversational Analytics Engine</h2>
             <div class="modal-body">
                 <ul>
@@ -178,6 +167,9 @@
     <div id="modal-2" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-2')">&times;</span>
+            <div class="readme-header">
+                <i class="fa-solid fa-book-open"></i> README.md
+            </div>
             <h2>DeepRAG: An Optimized RAG System for Research Document Analysis</h2>
             <div class="modal-body">
                 <ul>
@@ -210,6 +202,9 @@
     <div id="modal-3" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-3')">&times;</span>
+            <div class="readme-header">
+                <i class="fa-solid fa-book-open"></i> README.md
+            </div>
             <h2>DataAdapt: Fine-Tuned Domain-Specific Data Science Copilot</h2>
             <div class="modal-body">
                 <ul>
@@ -225,6 +220,9 @@
     <div id="modal-4" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-4')">&times;</span>
+            <div class="readme-header">
+                <i class="fa-solid fa-book-open"></i> README.md
+            </div>
             <h2>Generative AI Clinical Decision Support Pipeline</h2>
             <div class="modal-body">
                 <ul>
