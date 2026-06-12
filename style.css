@@ -186,6 +186,7 @@ nav {
     font-size: 1.15rem;
     color: var(--text-main);
     line-height: 1.8;
+    text-align: justify;
 }
 
 .about-text p {
