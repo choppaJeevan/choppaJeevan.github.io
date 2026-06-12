@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeevan Sai Reddy Choppa | AI & Data Science Portfolio</title>
+    <meta name="description" content="Portfolio of Jeevan Sai Reddy Choppa, MS Data Science candidate specializing in NLP and RAG pipelines.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</head>
+<body>
+    <div class="background-effects">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+    </div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#home" class="logo">JSR<span class="highlight">.</span></a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact" class="btn btn-outline">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <p class="subtitle">MS Data Science @ UMD</p>
+            <h1 class="title">Jeevan Sai Reddy <br><span class="gradient-text">Choppa</span></h1>
+            <p class="description">
+                Specializing in <span class="highlight">NLP</span>, <span class="highlight">LLM Fine-Tuning</span>, and <span class="highlight">Agentic Auto-ML</span>. 
+                I build end-to-end Machine Learning pipelines and advanced RAG systems.
+            </p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="https://github.com/choppaJeevan" target="_blank" class="btn btn-icon"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/jeevan-sai-reddy-choppa/" target="_blank" class="btn btn-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="profile-container">
+                <!-- Placeholder for User's Picture -->
+                <div class="profile-placeholder" id="profile-img">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="section">
+        <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+        <div class="about-grid">
+            <div class="about-text glass-card">
+                <p>I am an MS Data Science candidate at the University of Maryland (GPA: 3.86/4.0), passionate about Natural Language Processing and Retrieval-Augmented Generation.</p>
+                <br>
+                <p>My expertise lies in building production-ready, end-to-end ML pipelines—spanning data ingestion, model orchestration, hybrid search infrastructure, and automated evaluation. I strive to deliver measurable outcomes through AI.</p>
+            </div>
+            <div class="about-stats">
+                <div class="stat-card glass-card">
+                    <h3>2026</h3>
+                    <p>MS Graduation (UMD)</p>
+                </div>
+                <div class="stat-card glass-card">
+                    <h3>10+</h3>
+                    <p>AI/ML Projects</p>
+                </div>
+                <div class="stat-card glass-card">
+                    <h3>3.86</h3>
+                    <p>GPA</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <h2 class="section-title">Technical <span class="gradient-text">Arsenal</span></h2>
+        <div class="skills-grid">
+            <div class="skill-category glass-card">
+                <h3><i class="fa-solid fa-code"></i> Languages</h3>
+                <div class="skill-tags">
+                    <span>Python</span><span>SQL</span><span>MATLAB</span>
+                </div>
+            </div>
+            <div class="skill-category glass-card">
+                <h3><i class="fa-solid fa-network-wired"></i> ML & NLP</h3>
+                <div class="skill-tags">
+                    <span>PyTorch</span><span>Scikit-learn</span><span>Hugging Face</span><span>LangChain</span><span>LlamaParse</span><span>QLoRA</span>
+                </div>
+            </div>
+            <div class="skill-category glass-card">
+                <h3><i class="fa-solid fa-server"></i> Infrastructure</h3>
+                <div class="skill-tags">
+                    <span>Docker</span><span>Weaviate</span><span>Ollama</span><span>AWS</span><span>Git</span><span>PostgreSQL</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+        <div class="projects-grid">
+            
+            <div class="project-card glass-card project-clickable" onclick="openModal('modal-1')">
+                <div class="project-header">
+                    <h3>OmniData: Agentic Auto-ML</h3>
+                    <span class="date">Jun 2026</span>
+                </div>
+                <p>Multi-agent ML orchestration system that autonomously ingests datasets and executes a model tournament across 10+ algorithms. Integrated LLaVA and Llama 3 for visual and architectural selection.</p>
+                <div class="project-tech">
+                    <span>LLM Agents</span><span>Auto-ML</span><span>XGBoost</span>
+                </div>
+            </div>
+
+            <div class="project-card glass-card project-clickable" onclick="openModal('modal-2')">
+                <div class="project-header">
+                    <h3>DeepRAG: Enterprise Analysis</h3>
+                    <span class="date">Mar - May 2026</span>
+                </div>
+                <p>Optimized RAG pipeline processing complex PDFs via LlamaParse. Utilized Semantic Chunking (Gemma-3), Matryoshka Representation Learning, Weaviate v4 Hybrid Search, and DeepSeek-R1.</p>
+                <div class="project-tech">
+                    <span>RAG</span><span>Weaviate</span><span>DeepSeek-R1</span>
+                </div>
+            </div>
+
+            <div class="project-card glass-card project-clickable" onclick="openModal('modal-3')">
+                <div class="project-header">
+                    <h3>DataAdapt: DS Copilot</h3>
+                    <span class="date">May 2026</span>
+                </div>
+                <p>Fine-tuned Llama-3-8B into a specialized data science copilot using QLoRA. Built a robust data curation pipeline, reducing GPU memory by 75% and achieving a 35% improvement in code generation.</p>
+                <div class="project-tech">
+                    <span>QLoRA</span><span>Fine-Tuning</span><span>Llama-3</span>
+                </div>
+            </div>
+
+            <div class="project-card glass-card project-clickable" onclick="openModal('modal-4')">
+                <div class="project-header">
+                    <h3>GenAI Clinical Decision Support</h3>
+                    <span class="date">Apr - May 2026</span>
+                </div>
+                <p>End-to-end clinical decision pipeline processing 4,000+ MTSamples. Integrated domain-specific BERT architectures for NER and orchestrated Gemma3-4B via Ollama for treatment recommendations.</p>
+                <div class="project-tech">
+                    <span>Clinical NLP</span><span>BERT</span><span>Gemma3-4B</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer id="contact" class="footer">
+        <div class="footer-content glass-card">
+            <h2>Let's Connect</h2>
+            <p>Currently looking for new opportunities in Data Science, ML, and AI Engineering.</p>
+            <div class="contact-links">
+                <a href="mailto:jeevansaichoppa@gmail.com" class="contact-item"><i class="fa-solid fa-envelope"></i> jeevansaichoppa@gmail.com</a>
+                <a href="tel:+12403054587" class="contact-item"><i class="fa-solid fa-phone"></i> +1 (240) 305-4587</a>
+                <a href="#" class="contact-item"><i class="fa-solid fa-location-dot"></i> Hyattsville, MD</a>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/choppaJeevan" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/jeevan-sai-reddy-choppa/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+            <p class="copyright">© 2026 Jeevan Sai Reddy Choppa. Built with <i class="fa-solid fa-heart" style="color: #6366f1;"></i></p>
+        </div>
+    </footer>
+
+    <div id="modal-1" class="modal">
+        <div class="modal-content glass-card">
+            <span class="close-btn" onclick="closeModal('modal-1')">&times;</span>
+            <h2>OmniData: Agentic Auto-ML & Conversational Analytics Engine</h2>
+            <div class="modal-body">
+                <ul>
+                    <li>Architected a multi-agent <strong>Machine Learning orchestration system</strong> that autonomously ingests datasets, infers target variables via <strong>LLM semantic analysis</strong>, and executes a model tournament across <strong>10+ algorithms</strong> (XGBoost, LightGBM, Random Forest).</li>
+                    <li>Engineered a robust, <strong>leakage-immune preprocessing abstraction layer</strong> that fits imputers, <strong>RobustScalers</strong>, and encoders exclusively on training data, applying a two-phase correlation and multivariate leakage guard to eliminate data contamination.</li>
+                    <li>Designed a dataset-agnostic configuration architecture using a <strong>Pydantic</strong> state schema and deterministic routing gateway, enabling the pipeline to process entirely distinct datasets with <strong>zero manual code modifications</strong>.</li>
+                    <li>Integrated a <strong>Critic/Validator agent</strong> that computes train-vs-test score gaps, generates diagnostic plots (ROC-AUC, Precision-Recall), and explicitly flags overfitting, underfitting, or leakage conditions.</li>
+                    <li>Orchestrated a multi-modal <strong>AI Judge system</strong>, utilizing <strong>LLaVA</strong> to visually detect non-linearity in OLS residual plots and <strong>Llama 3</strong> to parse Macro F1 deltas, replacing subjective human judgment with reproducible architectural selection.</li>
+                    <li>Embedded a <strong>sandboxed Python execution engine</strong> with <strong>LLM-driven self-correction loops</strong> (up to 3 retries), enabling the system to autonomously generate, execute, and debug diagnostic scripts without human intervention.</li>
+                </ul>
+                <div class="mermaid-container">
+                    <pre class="mermaid">
+                    graph TD
+                        A[Raw Dataset] --> B[Data Ingestion Agent]
+                        B --> C{LLM Semantic Analysis}
+                        C --> D[Leakage-Immune Preprocessing]
+                        D --> E[Model Tournament: 10+ Algorithms]
+                        E --> F[Critic/Validator Agent]
+                        F -->|Diagnostic Plots| G[Multi-modal AI Judge]
+                        G --> H[Final Optimized Model]
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="modal-2" class="modal">
+        <div class="modal-content glass-card">
+            <span class="close-btn" onclick="closeModal('modal-2')">&times;</span>
+            <h2>DeepRAG: An Optimized RAG System for Research Document Analysis</h2>
+            <div class="modal-body">
+                <ul>
+                    <li>Architected an enterprise-grade <strong>Retrieval-Augmented Generation (RAG)</strong> pipeline, processing complex 250+ page PDFs via <strong>LlamaParse</strong> to seamlessly preserve highly structured Markdown tables and layouts.</li>
+                    <li>Replaced rigid token-window splitting with dynamic <strong>Semantic Chunking</strong> (via <strong>Gemma-3</strong>), accurately partitioning documents by contextual shifts to drastically enhance semantic boundaries and retrieval accuracy.</li>
+                    <li>Optimized vector storage overhead and search latency by <strong>3x</strong> via <strong>Matryoshka Representation Learning (MRL)</strong>, efficiently truncating <em>nomic-embed-text</em> dense vectors to 256 dimensions.</li>
+                    <li>Engineered a robust <strong>Weaviate v4</strong> (Dockerized) vector database supporting <strong>Hybrid Search</strong> (Dense + BM25), augmented by <strong>Multi-Query Expansion</strong> and advanced <strong>Cross-Encoder Reranking</strong>.</li>
+                    <li>Orchestrated <strong>DeepSeek-R1</strong> (via <strong>Ollama</strong>) as the core reasoning engine, fusing reranked context chunks with high-parameter linguistic reasoning to produce heavily grounded, source-cited responses.</li>
+                    <li>Validated end-to-end system architecture using an automated <strong>RAGAS evaluation suite</strong>, achieving near-perfect retrieval with <strong>0.98 Context Recall</strong> and <strong>0.93 Context Precision</strong>.</li>
+                </ul>
+                <div class="mermaid-container">
+                    <pre class="mermaid">
+                    graph TD
+                        A[250+ Page PDFs] --> B[LlamaParse]
+                        B --> C[Semantic Chunking: Gemma-3]
+                        C --> D[MRL Dense Vectors: nomic-embed-text]
+                        D --> E[(Weaviate v4 DB)]
+                        F[User Query] --> G[Multi-Query Expansion]
+                        G --> H[Hybrid Search]
+                        E -.-> H
+                        H --> I[Cross-Encoder Reranking]
+                        I --> J[DeepSeek-R1 Reasoning Engine]
+                        J --> K[Source-Cited Response]
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-3" class="modal">
+        <div class="modal-content glass-card">
+            <span class="close-btn" onclick="closeModal('modal-3')">&times;</span>
+            <h2>DataAdapt: Fine-Tuned Domain-Specific Data Science Copilot</h2>
+            <div class="modal-body">
+                <ul>
+                    <li>Fine-tuned a <strong>Llama-3-8B base model</strong> into a specialized data science copilot capable of generating SQL queries, Pandas workflows, and statistical interpretations using <strong>Supervised Fine-Tuning (SFT)</strong> and instruction datasets formatted into strict <strong>ChatML templates</strong>.</li>
+                    <li>Engineered a parameter-efficient training pipeline using <strong>QLoRA (Quantized Low-Rank Adaptation)</strong> via Hugging Face <strong>PEFT</strong> and bitsandbytes, reducing GPU memory footprint by <strong>75%</strong> and enabling training on a single consumer GPU.</li>
+                    <li>Built a rigorous data-cleaning curation pipeline with <strong>Pandas</strong> to eliminate syntax noise, enforce token length constraints, and filter out low-quality synthetic queries across a <strong>50k+ row training corpus</strong>.</li>
+                    <li>Mitigated catastrophic forgetting by integrating a <strong>balanced regularization dataset</strong> during the training loop, preserving the model's core reasoning and linguistic capabilities.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-4" class="modal">
+        <div class="modal-content glass-card">
+            <span class="close-btn" onclick="closeModal('modal-4')">&times;</span>
+            <h2>Generative AI Clinical Decision Support Pipeline</h2>
+            <div class="modal-body">
+                <ul>
+                    <li>Built an end-to-end <strong>clinical decision support pipeline</strong> processing over <strong>4,000+ MTSamples transcriptions</strong> into structured intelligence and actionable insights.</li>
+                    <li>Integrated <strong>domain-specific BERT architectures</strong> (<em>bert-base-uncased_clinical-ner</em>) fine-tuned on <strong>i2b2/n2c2</strong> corpora for <strong>Named Entity Recognition</strong>, precisely extracting medical problems, tests, and administered treatments with <strong>F1 > 0.87</strong>.</li>
+                    <li>Deployed a <strong>PubMedBERT-based multi-class classifier</strong> achieving <strong>93% accuracy</strong> in routing clinical notes across 13 distinct medical specialties.</li>
+                    <li>Orchestrated Google's <strong>Gemma3-4B</strong> via local <strong>Ollama</strong> REST APIs, enforcing strict <strong>JSON schemas</strong> to perform advanced clinical reasoning and logically infer comprehensive <strong>treatment recommendations</strong>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
