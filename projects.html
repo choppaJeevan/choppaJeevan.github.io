@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeevan Sai Reddy Choppa | Portfolio</title>
     <meta name="description" content="Projects by Jeevan Sai Reddy Choppa: RAG pipelines, LLM fine-tuning, agentic AutoML, and clinical NLP systems.">
-    <link rel="stylesheet" href="style.css?v=12">
+    <link rel="stylesheet" href="style.css?v=13">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -98,16 +98,121 @@
     <div id="modal-1-report" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-1-report')">&times;</span>
-            <div class="readme-header"><i class="fa-solid fa-book-open"></i> Project Report</div>
-            <h2>OmniData: Agentic Auto-ML</h2>
-            <div class="modal-body">
+            <div class="readme-header"><i class="fa-solid fa-book-open"></i> Project Overview</div>
+            <h2>ADA — Agentic Data Analysis</h2>
+            <div class="modal-body overview-content">
+                <h3>What is ADA?</h3>
+                <p>ADA (Agentic Data Analysis) is a <strong>fully local, autonomous AI data scientist</strong>. You hand it a raw CSV file, and it independently profiles the data, infers the prediction target, cleans and encodes the features, decides which family of machine learning models fits the data's geometry, runs a hyperparameter-tuned model tournament, audits its own winner for overfitting and data leakage, writes its own exploratory analysis code, and compiles a professional executive summary report — all without a single API call leaving your machine.</p>
+                <p>Every "thinking" step is powered by small open-source LLMs running locally through <strong>Ollama</strong>: Llama 3 for text reasoning and LLaVA for visual judgment. Every "doing" step is powered by deterministic Python tooling (pandas, scikit-learn, statsmodels, XGBoost, CatBoost, LightGBM).</p>
+
+                <h3>Design Philosophy</h3>
+                <p>The architecture follows one core rule: <strong>let the LLM decide, let deterministic code execute.</strong></p>
                 <ul>
-                    <li>Architected a multi-agent <strong>Machine Learning orchestration system</strong> that autonomously ingests datasets, infers target variables via <strong>LLM semantic analysis</strong>, and executes a model tournament across a diverse suite of algorithms.</li>
-                    <li>Engineered a robust, <strong>leakage-immune preprocessing abstraction layer</strong> that fits imputers, <strong>RobustScalers</strong>, and encoders exclusively on training data, applying a two-phase correlation and multivariate leakage guard to eliminate data contamination.</li>
-                    <li>Designed a dataset-agnostic configuration architecture using a <strong>Pydantic</strong> state schema and deterministic routing gateway, enabling the pipeline to process entirely distinct datasets without manual code modifications.</li>
-                    <li>Integrated a <strong>Critic/Validator agent</strong> that computes train-vs-test score gaps, generates diagnostic plots, and explicitly flags overfitting, underfitting, or leakage conditions.</li>
-                    <li>Orchestrated a multi-modal <strong>AI Judge system</strong>, utilizing <strong>LLaVA</strong> to visually detect non-linearity in OLS residual plots and <strong>Llama 3</strong> to parse Macro F1 deltas.</li>
+                    <li>LLMs are never trusted to do math, transform data, or train models. They only make <em>routing decisions</em> (which target column? linear or tree geometry?) and <em>interpretations</em> (is this model healthy? what does this report say?).</li>
+                    <li>Deterministic functions (the "Engine Room") do all the heavy lifting — preprocessing, leakage detection, training, validation — so results are reproducible and auditable.</li>
+                    <li>A hard-coded router (not an LLM) handles the regression vs. classification branch, eliminating hallucinated control flow where statistics already dictate the answer.</li>
                 </ul>
+
+                <h3>The Pipeline, Node by Node</h3>
+                <p>The architecture flowchart traces the full journey of a CSV through the system:</p>
+
+                <h4>1. Data Scout</h4>
+                <p>Extracts a compact JSON metadata summary of the CSV — shape, dtypes, missing values, cardinality, sample values. This keeps a 100MB dataset down to a few KB of context so a local 8B-parameter LLM can reason about it without exhausting VRAM.</p>
+
+                <h4>2. Target Inference</h4>
+                <p>Llama 3 reads the metadata summary and infers which column is the machine learning target — no human labeling required.</p>
+
+                <h4>3. Global Preprocessor</h4>
+                <p>A deterministic cleanup pipeline that splits train/test <em>first</em> (to prevent leakage), then:</p>
+                <ul>
+                    <li>Drops ID-like columns (numeric or categorical with ≥40% unique values)</li>
+                    <li>Imputes missing values (median / mode, fitted on train only)</li>
+                    <li>Adaptive encoding: one-hot for low cardinality, frequency encoding for medium cardinality</li>
+                    <li><strong>Three-layer leakage guard</strong>: drops categorical columns that perfectly partition the target, features with |correlation| ≥ 0.95, and groups of binary flags that collectively reconstruct the target (F1 ≥ 0.90 on flags alone)</li>
+                    <li>Detects and removes duplicate columns</li>
+                </ul>
+
+                <h4>4. Dynamic Task Router</h4>
+                <p>A deterministic switch: regression goes one way, classification goes the other.</p>
+
+                <h4>5a. Regression Branch — The Visual Judge</h4>
+                <p>Fits a baseline OLS model with statsmodels and saves a residual plot. Then <strong>LLaVA, a vision LLM, literally looks at the plot</strong> — if it sees a random cloud, the data is linear; if it sees curvature or a heteroscedasticity funnel, it routes to tree-based models.</p>
+
+                <h4>5b. Classification Branch — The Statistical Judge</h4>
+                <p>Benchmarks Logistic Regression vs. Random Forest with cross-validated Macro F1 (imbalance-safe). Llama 3 reads the F1 delta and rules whether the decision boundary is linear or non-linear.</p>
+
+                <h4>6. Conditional Optimizer</h4>
+                <p>If a LINEAR model family was chosen, the data gets "surgery": IQR outlier removal and RobustScaler scaling (fitted on train only). Tree models skip this entirely — they're scale- and outlier-invariant.</p>
+
+                <h4>7. Model Tournament</h4>
+                <p>The chosen family competes in a hyperparameter-tuned tournament via <code>RandomizedSearchCV</code>:</p>
+                <ul>
+                    <li><strong>Linear suite</strong>: LinearRegression / Ridge / Lasso, or LogisticRegression / LinearSVC</li>
+                    <li><strong>Tree suite</strong>: RandomForest, GradientBoosting, KNN, XGBoost, CatBoost, LightGBM</li>
+                </ul>
+                <p>The winner is selected on R² (regression) or Macro F1 (classification), and predictions are exported to CSV.</p>
+
+                <h4>8. Critic / Validator Agent</h4>
+                <p>The system audits its own work. It computes train-vs-test score gaps and flags <code>OVERFITTING_DETECTED</code>, <code>UNDERFITTING_DETECTED</code>, or <code>DATA_LEAKAGE_SUSPECTED</code>. It generates a full diagnostic plot suite — confusion matrix, ROC-AUC curves, precision-recall curves, learning curves — then Llama 3 writes a natural-language health verdict.</p>
+
+                <h4>9. Sandbox Code Generator (Self-Correcting)</h4>
+                <p>Llama 3 writes its own exploratory Python analysis script, which runs in an isolated sandbox namespace. If the code crashes, the full traceback is fed back to the LLM, which fixes its own bug — up to 3 attempts.</p>
+
+                <h4>10. Insight Synthesizer &amp; Reporter</h4>
+                <p>All state artifacts — routing decisions, metrics, critic flags, execution history — are compiled by Llama 3 into a polished Markdown executive summary report saved to <code>reports/</code>.</p>
+
+                <h4>11. Interactive Q&amp;A Workspace</h4>
+                <p>After the pipeline completes, you can chat with your data. The agent answers questions grounded in the actual pipeline ledger and a data snapshot. If you ask for a plot or computation, it <strong>writes and executes the code live</strong> in the sandbox, with the same self-correction loop.</p>
+
+                <h3>State Management</h3>
+                <p>A single Pydantic model (<code>AnalystGraphState</code>) is the system's central nervous system. Every node reads from it and writes typed updates back, producing a full execution audit trail. Completed pipelines are cached to disk (keyed by dataset hash) so re-runs can fast-forward straight to the Q&amp;A workspace.</p>
+
+                <h3>Proven Results</h3>
+                <table class="overview-table">
+                    <thead>
+                        <tr>
+                            <th>Dataset</th>
+                            <th>Task</th>
+                            <th>Winning Model</th>
+                            <th>Test Score</th>
+                            <th>Health Verdict</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Telco Customer Churn</td>
+                            <td>Classification</td>
+                            <td>CatBoost</td>
+                            <td>0.797 accuracy</td>
+                            <td>HEALTHY (gap 0.037)</td>
+                        </tr>
+                        <tr>
+                            <td>Titanic</td>
+                            <td>Classification</td>
+                            <td>Tree family</td>
+                            <td>0.835 accuracy</td>
+                            <td>HEALTHY</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>File Map</h3>
+                <table class="overview-table">
+                    <thead>
+                        <tr>
+                            <th>File</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>graph_backbone.py</code></td><td>Orchestrator: all graph nodes, routing, main pipeline loop, Q&amp;A workspace</td></tr>
+                        <tr><td><code>engine_room.py</code></td><td>Deterministic tools: metadata extractor, preprocessor, OLS baseline, optimizer, benchmarker, critic engine</td></tr>
+                        <tr><td><code>state_schema.py</code></td><td>Pydantic central graph state</td></tr>
+                        <tr><td><code>sandbox_executor.py</code></td><td>Isolated execution environment for AI-generated code</td></tr>
+                        <tr><td><code>reports/</code></td><td>Generated executive reports, prediction CSVs, AI-written scripts, pipeline caches</td></tr>
+                        <tr><td><code>plots/</code></td><td>Residual plots and diagnostic visuals</td></tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -163,21 +268,12 @@
 
     <!-- Modals for Flowcharts -->
     <div id="modal-1-flowchart" class="modal">
-        <div class="modal-content">
+        <div class="modal-content modal-content-wide">
             <span class="close-btn" onclick="closeModal('modal-1-flowchart')">&times;</span>
             <div class="readme-header"><i class="fa-solid fa-project-diagram"></i> Architecture Flowchart</div>
-            <h2>OmniData Architecture</h2>
-            <div class="mermaid-container">
-                <pre class="mermaid">
-                graph TD
-                    A[Raw Dataset] --> B[Data Ingestion Agent]
-                    B --> C{LLM Semantic Analysis}
-                    C --> D[Leakage-Immune Preprocessing]
-                    D --> E[Model Tournament]
-                    E --> F[Critic/Validator Agent]
-                    F -->|Diagnostic Plots| G[Multi-modal AI Judge]
-                    G --> H[Final Optimized Model]
-                </pre>
+            <h2>ADA Architecture</h2>
+            <div class="flowchart-container">
+                <img src="images/ada-flowchart.png" alt="ADA Agentic Data Analysis architecture flowchart" class="flowchart-image">
             </div>
         </div>
     </div>
