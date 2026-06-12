@@ -192,6 +192,96 @@ nav {
     margin-bottom: 1.5rem;
 }
 
+/* Resume Page Layout */
+.resume-page-container {
+    max-width: 1200px;
+    margin: 8rem auto 4rem auto;
+    padding: 0 5%;
+    display: flex;
+    gap: 4rem;
+    align-items: flex-start;
+}
+.resume-sidebar {
+    width: 250px;
+    position: sticky;
+    top: 100px;
+}
+.sidebar-links {
+    list-style: none;
+}
+.sidebar-links li {
+    margin-bottom: 1rem;
+}
+.sidebar-links a {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+.sidebar-links a:hover {
+    color: var(--text-main);
+}
+.resume-content {
+    flex: 1;
+}
+.resume-title {
+    margin-bottom: 3rem;
+}
+.resume-title h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+.cv-section {
+    background: transparent;
+    border-radius: 8px;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px dashed var(--border);
+}
+.cv-section h2 {
+    font-size: 1.8rem;
+    color: var(--text-main);
+    margin-bottom: 2rem;
+}
+.cv-grid {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 1rem 2rem;
+    align-items: baseline;
+}
+.cv-label {
+    font-weight: 700;
+    color: var(--text-main);
+}
+.cv-value {
+    color: var(--text-muted);
+}
+.cv-item {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+.cv-item-left {
+    flex: 0 0 150px;
+}
+.cv-item-right {
+    flex: 1;
+}
+.cv-item-title {
+    font-size: 1.3rem;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+}
+.cv-item-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+.cv-item-desc {
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
 /* Projects (Stacked Layout) */
 .projects-list {
     display: flex;
