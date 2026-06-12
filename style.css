@@ -259,11 +259,13 @@ nav {
 }
 .cv-item {
     display: flex;
+    flex-direction: row-reverse;
     gap: 2rem;
     margin-bottom: 2rem;
 }
 .cv-item-left {
     flex: 0 0 150px;
+    text-align: right;
 }
 .cv-item-right {
     flex: 1;
