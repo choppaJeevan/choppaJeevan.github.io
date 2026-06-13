@@ -334,29 +334,29 @@
                 <pre class="mermaid">
                 graph TD
                     %% Source Data
-                    PDF[PDF Document] --> PC[Parse + Semantic Chunking]
-                    PC --> BE[Batch Embedding + MRL]
-                    BE --> Cache[(JSON Cache)]
+                    PDF["PDF Document"] --> PC["Parse + Semantic Chunking"]
+                    PC --> BE["Batch Embedding + MRL"]
+                    BE --> Cache[("JSON Cache")]
                     
                     %% Storage
-                    Cache --> WV[Weaviate Vector DB]
+                    Cache --> WV["Weaviate Vector DB"]
                     
                     %% Query Path
-                    UserQ[User Query] --> RQ[Query Rewriting]
-                    RQ --> QE[Query Embedding + MRL]
-                    QE --> WS[Weaviate Vector Search]
+                    UserQ["User Query"] --> RQ["Query Rewriting"]
+                    RQ --> QE["Query Embedding + MRL"]
+                    QE --> WS["Weaviate Vector Search"]
                     
                     %% Refinement
-                    WS --> RC[Cross-Encoder Re-ranking]
-                    RC --> PS[Prompt Synthesis]
-                    PS --> GEN[LLM Generation]
-                    GEN --> Ans[Final Response]
+                    WS --> RC["Cross-Encoder Re-ranking"]
+                    RC --> PS["Prompt Synthesis"]
+                    PS --> GEN["LLM Generation"]
+                    GEN --> Ans["Final Response"]
                     
                     %% Evaluation
                     subgraph Evaluation_Loop
-                        TE[Test Dataset] --> Run[Run RAG Pipeline]
-                        Run --> Eval[RAGAS Evaluation]
-                        Eval --> Met[Faithfulness, Relevancy, Precision, Recall]
+                        TE["Test Dataset"] --> Run["Run RAG Pipeline"]
+                        Run --> Eval["RAGAS Evaluation"]
+                        Eval --> Met["Faithfulness, Relevancy, Precision, Recall"]
                     end
                 </pre>
             </div>
