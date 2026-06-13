@@ -220,15 +220,62 @@
     <div id="modal-2-report" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-2-report')">&times;</span>
-            <div class="readme-header"><i class="fa-solid fa-book-open"></i> Project Report</div>
-            <h2>DeepRAG: Enterprise Analysis</h2>
-            <div class="modal-body">
+            <div class="readme-header"><i class="fa-solid fa-book-open"></i> Project Overview</div>
+            <h2>DeepRAG: Optimized Local RAG System</h2>
+            <div class="modal-body overview-content">
+                <h3>What is DeepRAG?</h3>
+                <p>This project is an advanced, locally-hosted Retrieval-Augmented Generation (RAG) system designed to accurately parse, retrieve, and synthesize information from complex documents (such as survey papers and textbooks). It emphasizes performance optimization, cost reduction by using local models, and rigorous automated evaluation.</p>
+
+                <h3>Project Purpose</h3>
+                <p>The primary goal of this system is to provide highly accurate, fact-based answers grounded strictly in the provided documents. By implementing advanced retrieval techniques (like query rewriting and cross-encoder re-ranking) and utilizing a robust evaluation framework, the system aims to minimize hallucinations and deliver precise citations (e.g., page numbers) for every fact it generates.</p>
+
+                <h3>Architecture and Technology Stack</h3>
+                <p>The project leverages a modern, hybrid stack combining local inference with specialized cloud parsing:</p>
                 <ul>
-                    <li>Architected an enterprise-grade <strong>Retrieval-Augmented Generation (RAG)</strong> pipeline, processing long and complex research PDFs via <strong>LlamaParse</strong> to seamlessly preserve highly structured Markdown tables and layouts.</li>
-                    <li>Replaced rigid token-window splitting with dynamic <strong>Semantic Chunking</strong> (via <strong>Gemma-3</strong>), accurately partitioning documents by contextual shifts to drastically enhance semantic boundaries.</li>
-                    <li>Reduced vector storage overhead and search latency via <strong>Matryoshka Representation Learning (MRL)</strong>.</li>
-                    <li>Engineered a robust <strong>Weaviate v4</strong> vector database supporting <strong>Hybrid Search</strong>, augmented by <strong>Multi-Query Expansion</strong> and advanced <strong>Cross-Encoder Reranking</strong>.</li>
-                    <li>Orchestrated <strong>DeepSeek-R1</strong> as the core reasoning engine.</li>
+                    <li><strong>Document Parsing:</strong> LlamaParse (cloud API) for handling complex PDFs, markdown tables, and maintaining strict page-level tracking.</li>
+                    <li><strong>Vector Database:</strong> Weaviate (local) for fast, scalable nearest-neighbor searches using HNSW indexing.</li>
+                    <li><strong>Embeddings:</strong> Nomic-embed-text via Ollama, utilizing Matryoshka Representation Learning (MRL) for dimensionality reduction (from full size down to 256 dimensions) to save memory while maintaining accuracy.</li>
+                    <li><strong>Generation and Reasoning LLM:</strong> DeepSeek-R1 (8B parameter version) running locally via Ollama. It acts as the core reasoning engine for query rewriting and final answer generation.</li>
+                    <li><strong>Re-ranking:</strong> BAAI/bge-reranker-base (Sentence Transformers) running locally on CPU for highly accurate cross-encoder relevance scoring.</li>
+                    <li><strong>Evaluation:</strong> RAGAS framework using a local Mistral model as the automated judge.</li>
+                    <li><strong>Application Layer:</strong> A backend API (<code>api.py</code>) and a frontend web application.</li>
+                    <li><strong>Containerization:</strong> Docker and Docker Compose for reproducible local deployment.</li>
+                </ul>
+
+                <h3>1. The Core RAG Engine (<code>rag_optimized.py</code>)</h3>
+                <p>This is the production pipeline responsible for handling user queries. It is highly optimized for speed and context window management.</p>
+                <ul>
+                    <li><strong>Ingestion and Caching:</strong> It parses documents using LlamaParse and splits them using a <code>SemanticChunker</code> (to keep context boundaries intact), followed by a recursive character text splitter for oversized chunks. It embeds the chunks in batches using Nomic, slices the vectors using MRL, normalizes them, and caches the processed data locally. This avoids redundant API calls and parsing times on subsequent runs.</li>
+                    <li><strong>Weaviate Integration:</strong> Pre-computed vectors and metadata (including exact page numbers) are uploaded to a local Weaviate instance.</li>
+                    <li><strong>Query Rewriting:</strong> User queries are passed through DeepSeek-R1 to expand and specify vague questions, optimizing them for vector search.</li>
+                    <li><strong>Retrieval:</strong> The rewritten query is embedded and used to fetch the top 30 most relevant chunks from Weaviate.</li>
+                    <li><strong>Cross-Encoder Re-ranking:</strong> The retrieved chunks are scored against the original user query using the BGE cross-encoder. This replaces traditional, slower LLM-based distillation, bubbling the top 5 most relevant chunks to the surface.</li>
+                    <li><strong>Prompt Synthesis and Generation:</strong> The top 5 chunks are assembled into a strict prompt demanding inline citations. DeepSeek-R1 generates the final answer, and any internal reasoning tags are stripped before presenting the final grounded response to the user.</li>
+                </ul>
+
+                <h3>2. The Evaluation Framework (<code>rag_evaluate.py</code>)</h3>
+                <p>To ensure the pipeline is accurate and reliable, the project includes an automated evaluation script built on RAGAS (Retrieval Augmented Generation Assessment).</p>
+                <ul>
+                    <li><strong>Local LLM Judge:</strong> It configures a local Mistral model (via Langchain and Ollama) with a temperature of 0.0 to act as an objective, deterministic evaluator.</li>
+                    <li><strong>Testset Execution:</strong> It loads a predefined set of test questions and ground truths (<code>eval_testset.json</code>). It then runs these questions through the core <code>rag_optimized.py</code> pipeline to collect retrieved contexts and generated answers.</li>
+                    <li><strong>Generation Caching:</strong> To save time during iterative prompt engineering, it caches the generated answers (<code>eval_generations_cache.json</code>) so metrics can be re-run without re-generating text.</li>
+                    <li><strong>Metrics Calculation:</strong> The script scores the system on four key RAGAS metrics:
+                        <ul>
+                            <li><em>Faithfulness:</em> Does the answer only contain information found in the context?</li>
+                            <li><em>Answer Relevancy:</em> Does the answer directly address the question?</li>
+                            <li><em>Context Precision:</em> Were the most relevant chunks ranked at the top?</li>
+                            <li><em>Context Recall:</em> Did the retrieved chunks contain all the necessary information to answer the question?</li>
+                        </ul>
+                    </li>
+                    <li><strong>Reporting:</strong> The final scores are aggregated and exported to <code>eval_results.json</code> for analysis.</li>
+                </ul>
+
+                <h3>3. Application and Deployment</h3>
+                <p>The repository is structured to be run as a full application rather than just scripts.</p>
+                <ul>
+                    <li><strong>Backend &amp; API:</strong> The <code>api.py</code> script serves as the backend interface, likely exposing the RAG pipeline over HTTP for external consumption.</li>
+                    <li><strong>Frontend UI:</strong> A <code>frontend</code> directory suggests a web-based user interface for interacting with the document query system.</li>
+                    <li><strong>Containerization:</strong> The presence of <code>Dockerfile</code> and <code>docker-compose.yml</code> indicates that the environment, including the application servers and potentially the Weaviate database, can be spun up seamlessly in isolated containers, ensuring cross-platform reproducibility without manual dependency hell.</li>
                 </ul>
             </div>
         </div>
@@ -279,23 +326,38 @@
     </div>
 
     <div id="modal-2-flowchart" class="modal">
-        <div class="modal-content">
+        <div class="modal-content modal-content-wide">
             <span class="close-btn" onclick="closeModal('modal-2-flowchart')">&times;</span>
             <div class="readme-header"><i class="fa-solid fa-project-diagram"></i> Architecture Flowchart</div>
-            <h2>DeepRAG Pipeline</h2>
+            <h2>DeepRAG Architecture Flowchart</h2>
             <div class="mermaid-container">
                 <pre class="mermaid">
                 graph TD
-                    A[Research PDFs] --> B[LlamaParse]
-                    B --> C[Semantic Chunking: Gemma-3]
-                    C --> D[MRL Dense Vectors: nomic-embed-text]
-                    D --> E[(Weaviate v4 DB)]
-                    F[User Query] --> G[Multi-Query Expansion]
-                    G --> H[Hybrid Search]
-                    E -.-> H
-                    H --> I[Cross-Encoder Reranking]
-                    I --> J[DeepSeek-R1 Reasoning Engine]
-                    J --> K[Source-Cited Response]
+                    %% Source Data
+                    PDF[PDF Document] --> PC[Parse + Semantic Chunking]
+                    PC --> BE[Batch Embedding + MRL]
+                    BE --> Cache[(JSON Cache)]
+                    
+                    %% Storage
+                    Cache --> WV[Weaviate Vector DB]
+                    
+                    %% Query Path
+                    UserQ[User Query] --> RQ[Query Rewriting]
+                    RQ --> QE[Query Embedding + MRL]
+                    QE --> WS[Weaviate Vector Search]
+                    
+                    %% Refinement
+                    WS --> RC[Cross-Encoder Re-ranking]
+                    RC --> PS[Prompt Synthesis]
+                    PS --> GEN[LLM Generation]
+                    GEN --> Ans[Final Response]
+                    
+                    %% Evaluation
+                    subgraph Evaluation_Loop
+                        TE[Test Dataset] --> Run[Run RAG Pipeline]
+                        Run --> Eval[RAGAS Evaluation]
+                        Eval --> Met[Faithfulness, Relevancy, Precision, Recall]
+                    end
                 </pre>
             </div>
         </div>
