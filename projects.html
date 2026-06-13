@@ -433,19 +433,72 @@
     <div id="modal-4-report" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal-4-report')">&times;</span>
-            <div class="readme-header"><i class="fa-solid fa-book-open"></i> Project Report</div>
-            <h2>GenAI Clinical Decision Support</h2>
-            <div class="modal-body">
+            <div class="readme-header"><i class="fa-solid fa-book-open"></i> Project Overview</div>
+            <h2>Detailed Procedure: Clinical NLP Pipeline</h2>
+            <div class="modal-body overview-content">
+                <p>This document details the complete procedure and architecture of the Clinical NLP Pipeline, covering data loading, model fine-tuning, and the end-to-end inference application.</p>
+                
+                <h3>1. Data Ingestion and Preparation (<code>data_loader.py</code>)</h3>
                 <ul>
-                    <li>Built an end-to-end <strong>clinical decision support pipeline</strong> processing
-                        <strong>MTSamples transcriptions</strong> into structured intelligence.</li>
-                    <li>Integrated <strong>domain-specific BERT architectures</strong> fine-tuned on
-                        <strong>i2b2/n2c2</strong> corpora for <strong>Named Entity Recognition</strong>, precisely
-                        extracting medical problems, treatments, and tests.</li>
-                    <li>Deployed a <strong>PubMedBERT-based multi-class classifier</strong> to route clinical notes
-                        across distinct medical specialties.</li>
-                    <li>Orchestrated Google's <strong>Gemma3-4B</strong> via local <strong>Ollama</strong> REST APIs to
-                        logically infer comprehensive <strong>treatment recommendations</strong>.</li>
+                    <li><strong>Specialty Classification Data</strong>: The pipeline loads over 4,000 medical transcriptions spanning 40 medical specialties using the <code>harishnair04/mtsamples</code> HuggingFace dataset.</li>
+                    <li><strong>NER Proxy Data</strong>: Because authentic clinical datasets (like i2b2) are protected under HIPAA, the pipeline features a synthetic proxy dataset generator that creates structurally identical tokens and BIO-tags for fine-tuning (Symptoms, Medications, Diagnoses, Procedures).</li>
+                </ul>
+
+                <h3>2. Model Fine-Tuning &amp; Evaluation</h3>
+                <p>The project includes VRAM-optimized (4GB) training pipelines for domain-specific tasks.</p>
+
+                <h4>Medical Specialty Classification (<code>train_classifier.py</code>)</h4>
+                <ul>
+                    <li><strong>Base Model</strong>: <code>emilyalsentzer/Bio_ClinicalBERT</code></li>
+                    <li><strong>Architecture</strong>: Sequence Classification.</li>
+                    <li><strong>Optimization</strong>: Gradient accumulation, mixed precision (fp16), and heavy text truncation (max 128 tokens) to maintain low VRAM usage.</li>
+                    <li><strong>Evaluation</strong>: Targets a macro-averaged F1 score &gt; 0.82 and tracks overall accuracy.</li>
+                </ul>
+
+                <h4>Named Entity Recognition (<code>train_ner.py</code>)</h4>
+                <ul>
+                    <li><strong>Base Model</strong>: <code>emilyalsentzer/Bio_ClinicalBERT</code></li>
+                    <li><strong>Architecture</strong>: Token Classification.</li>
+                    <li><strong>Data Alignment</strong>: Sub-word tokenization aligned meticulously with word-level BIO tags.</li>
+                    <li><strong>Evaluation</strong>: Uses strict BIO-tag scoring via <code>seqeval</code> aiming for sequence F1 &gt; 0.87.</li>
+                </ul>
+
+                <h3>3. End-to-End Inference Application (<code>app.py</code>)</h3>
+                <p>The Streamlit application coordinates a robust, three-stage pipeline for processing raw clinical notes:</p>
+
+                <h4>Stage 1: Named Entity Recognition (NER)</h4>
+                <ul>
+                    <li><strong>Model</strong>: <code>samrawal/bert-base-uncased_clinical-ner</code></li>
+                    <li><strong>Function</strong>: Scans the raw text and highlights entities categorized as Problems (🔴), Treatments (🟢), and Tests (🔵).</li>
+                    <li><strong>VRAM Management</strong>: Upon completion, the model is purged from VRAM (<code>torch.cuda.empty_cache()</code>) to free up memory for subsequent stages.</li>
+                </ul>
+
+                <h4>Stage 2: Specialty Classification</h4>
+                <ul>
+                    <li><strong>Model</strong>: <code>anaschahid/medical-specialty-classifier</code> (Fine-tuned PubMedBERT)</li>
+                    <li><strong>Function</strong>: Predicts the most likely medical specialty (e.g., Surgery, Neurology) of the note.</li>
+                    <li><strong>Performance</strong>: Capable of classifying into 13 major specialties with high confidence.</li>
+                </ul>
+
+                <h4>Stage 3: Structured Summarization (<code>summarizer.py</code>)</h4>
+                <ul>
+                    <li><strong>Orchestration</strong>: Sends the clinical transcription to a local Ollama server running <code>gemma3:4b</code> (or <code>BioMistral-7B</code>).</li>
+                    <li><strong>Prompt Engineering</strong>: Enforces a strict JSON format response.</li>
+                    <li><strong>Output</strong>: Returns a structured object detailing:
+                        <ul>
+                            <li>Chief Complaint</li>
+                            <li>Primary Diagnosis</li>
+                            <li>Treatments Administered</li>
+                            <li>Recommended Treatment Plan</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3>4. Evaluation and Metrics (<code>summarizer.py</code>)</h3>
+                <p>Beyond typical text evaluation, the pipeline supports rigorous medical summary validation:</p>
+                <ul>
+                    <li><strong>ROUGE-L</strong>: Measures longest common subsequence overlap against gold standard references.</li>
+                    <li><strong>BERTScore</strong>: Computes semantic similarity (F1), ensuring the medical meaning remains accurate even if the LLM paraphrases the response.</li>
                 </ul>
             </div>
         </div>
@@ -494,20 +547,12 @@
     </div>
 
     <div id="modal-4-flowchart" class="modal">
-        <div class="modal-content">
+        <div class="modal-content modal-content-wide">
             <span class="close-btn" onclick="closeModal('modal-4-flowchart')">&times;</span>
             <div class="readme-header"><i class="fa-solid fa-project-diagram"></i> Architecture Flowchart</div>
-            <h2>Clinical Decision Pipeline</h2>
-            <div class="mermaid-container">
-                <pre class="mermaid">
-                graph TD
-                    A[MTSamples Transcriptions] --> B[PubMedBERT Routing]
-                    A --> C[Clinical NER Extraction]
-                    B --> D[Aggregated Clinical Profile]
-                    C --> D
-                    D --> E[Gemma3-4B Reasoning]
-                    E --> F[Treatment Recommendations JSON]
-                </pre>
+            <h2>Clinical Decision Pipeline Flowchart</h2>
+            <div class="flowchart-container">
+                <img src="images/flowchart_clinical.png" alt="Clinical Decision Pipeline flowchart" class="flowchart-image">
             </div>
         </div>
     </div>
